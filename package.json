@@ -1,13 +1,18 @@
 {
   "name": "@groinder/create-react-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "Groinder's Create React App",
+  "homepage": "https://github.com/groinder/create-react-app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/groinder/create-react-app.git"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "groinder",
+  "license": "UNLICENSED",
   "dependencies": {
     "@groinder/eslint-config": "^1.0.1",
     "@groinder/prettier-config": "^1.0.0",
