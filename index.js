@@ -2,7 +2,8 @@
 
 let shell = require('shelljs');
 let fs = require('fs');
-const path = require('path');
+let path = require('path');
+let ncp = require('ncp').ncp;
 
 let appName = process.argv[2];
 let appDirectory = `${process.cwd()}/${appName}`;
@@ -30,6 +31,7 @@ const packages = [
   'eslint',
   'stylelint',
   'prettier',
+  'hygen',
   '@groinder/eslint-config',
   '@groinder/prettier-config',
   '@groinder/stylelint-config',
@@ -37,6 +39,8 @@ const packages = [
   '@testing-library/react',
   '@types/jest',
   '@storybook/react',
+  '@storybook/addon-knobs',
+  '@storybook/addon-actions',
 ];
 
 const installPackages = () => {
@@ -100,6 +104,16 @@ const updateConfigs = () => {
   });
 };
 
+const copyHygenTemplates = () => {
+  return new Promise((resolve) => {
+    ncp(
+      path.resolve(__dirname, '_templates'),
+      `${appDirectory}/_templates`,
+      () => resolve(),
+    );
+  });
+};
+
 const templates = ['App.test.tsx', 'App.tsx', 'index.tsx'];
 
 const updateTemplates = () => {
@@ -127,9 +141,12 @@ const updateTemplates = () => {
 
 const commitChanges = async () => {
   return new Promise((resolve) => {
-    shell.exec(`git add . && git commit -m "Initial commit with Groinder Create React App"`, () => {
-      resolve();
-    });
+    shell.exec(
+      `git add . && git commit -m "Initial commit with Groinder Create React App"`,
+      () => {
+        resolve();
+      },
+    );
   });
 };
 
@@ -145,6 +162,7 @@ const run = async () => {
 
   await updateConfigs();
   await updateTemplates();
+  await copyHygenTemplates();
   shell.cd(appName);
   await installPackages();
   shell.cd('..');

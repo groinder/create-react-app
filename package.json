@@ -13,10 +13,11 @@
     "@groinder/prettier-config": "^1.0.0",
     "colors": "^1.4.0",
     "json": "^9.0.6",
+    "ncp": "^2.0.0",
     "shelljs": "^0.8.3"
   },
   "bin": {
-    "groinder-create-react-app": "index.js"
+    "@groinder/create-react-app": "index.js"
   },
   "eslintConfig": {
     "extends": [
