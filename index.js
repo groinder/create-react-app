@@ -73,7 +73,6 @@ const extendPackageJson = () => {
 };
 
 const configs = [
-  '.gitignore',
   '.eslintignore',
   '.prettierignore',
   'tsconfig.json',
@@ -101,6 +100,22 @@ const updateConfigs = () => {
     Promise.all(promises).then(() => {
       resolve();
     });
+  });
+};
+
+// .gitignore has to have different name as otherwise it's not published to npm
+const copyGitignore = () => {
+  return new Promise((resolve) => {
+    fs.copyFile(
+      path.resolve(__dirname, 'configs', 'gitignore'),
+      `${appDirectory}/.gitignore`,
+      function(err) {
+        if (err) {
+          return console.log(err);
+        }
+        resolve();
+      },
+    );
   });
 };
 
@@ -161,6 +176,7 @@ const run = async () => {
   }
 
   await updateConfigs();
+  await copyGitignore();
   await updateTemplates();
   await copyHygenTemplates();
   shell.cd(appName);
