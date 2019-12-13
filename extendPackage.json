@@ -1,0 +1,36 @@
+{
+  "scripts": {
+    "lint": "yarn lint-code --max-warnings 0 && yarn lint-style",
+    "lint-code": "eslint '**/*.{js,ts,tsx}'",
+    "lint-style": "yarn prettier -c '**/*.{js,ts,tsx,json,md,yml}'",
+    "storybook": "start-storybook"
+  },
+  "lint-staged": {
+    "./**/*.{js,ts,tsx}": [
+      "eslint --fix --max-warnings 0",
+      "prettier --write",
+      "git add"
+    ],
+    "./**/*.{json,md,yml}": ["prettier --write", "git add"]
+  },
+  "eslintConfig": {
+    "extends": ["@groinder/eslint-config/typescript-react"]
+  },
+  "prettier": "@groinder/prettier-config",
+  "jest": {
+    "clearMocks": true,
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.{ts,tsx}",
+      "!<rootDir>/**/*.{automation,mockData,stories}.*",
+      "!<rootDir>/src/{index.tsx,serviceWorker.ts}"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    }
+  }
+}

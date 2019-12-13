@@ -1,0 +1,8 @@
+node_modules/
+build/
+coverage/
+serviceWorker.ts
+*.d.ts
+
+# ESLint ignores 'hidden' folders by default.
+!.storybook
